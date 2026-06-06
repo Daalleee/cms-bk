@@ -13,23 +13,23 @@
 
     <section class="py-20 bg-white">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="max-w-3xl mx-auto text-center mb-12">
+            <div data-reveal class="max-w-3xl mx-auto text-center mb-12">
                 <h2 class="text-2xl font-black text-gray-900 mb-4">Tentang Tahap {{ $tahapan->urutan }}</h2>
                 <p class="text-lg text-gray-600 leading-relaxed">{{ $tahapan->deskripsi }}</p>
             </div>
 
             @if($tahapan->gambar)
-                <div class="mb-12 rounded-2xl overflow-hidden shadow-lg max-w-3xl mx-auto">
+                <div data-reveal class="mb-12 rounded-2xl overflow-hidden shadow-lg max-w-3xl mx-auto">
                     <img src="{{ asset('storage/' . $tahapan->gambar) }}" alt="{{ $tahapan->nama_tahap }}" class="w-full h-auto">
                 </div>
             @endif
 
             @php $tahapVideos = $tahapan->media->where('koleksi', 'video'); @endphp
             @if($tahapVideos->isNotEmpty())
-                <h3 class="text-xl font-bold text-gray-900 mb-6">Video Panduan</h3>
+                <h3 data-reveal class="text-xl font-bold text-gray-900 mb-6">Video Panduan</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     @foreach($tahapVideos as $vid)
-                        <div class="bg-gray-50 rounded-2xl overflow-hidden shadow-lg">
+                        <div data-reveal class="bg-gray-50 rounded-2xl overflow-hidden shadow-lg card-hover">
                             <div class="aspect-video bg-black">
                                 @if($vid->sumber === 'youtube' && $vid->youtube_id)
                                     <iframe width="100%" height="100%" src="https://www.youtube.com/embed/{{ $vid->youtube_id }}" title="{{ $vid->nama ?? $tahapan->nama_tahap }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-full"></iframe>
@@ -79,7 +79,7 @@
                 </div>
             @endif
 
-            <div class="mt-12 pt-8 border-t border-gray-200">
+            <div data-reveal class="mt-12 pt-8 border-t border-gray-200">
                 <div class="flex flex-wrap items-center justify-between gap-4">
                     @php
                         $prev = $tahapans->where('urutan', $tahapan->urutan - 1)->first();
@@ -87,17 +87,19 @@
                     @endphp
                     <div>
                         @if($prev)
-                            <a href="{{ route('frontend.tahapan.detail', $prev) }}" class="inline-flex items-center gap-2 text-indigo-600 hover:text-indigo-800 font-semibold transition">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
-                                Tahap {{ $prev->urutan }}: {{ $prev->nama_tahap }}
+                            <a href="{{ route('frontend.tahapan.detail', $prev) }}" class="group inline-flex items-center gap-2 px-5 py-3 bg-indigo-50 text-indigo-700 rounded-xl font-semibold hover:bg-indigo-100 transition-all duration-300">
+                                <svg class="w-5 h-5 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                                <span class="hidden sm:inline">Tahap {{ $prev->urutan }}: {{ $prev->nama_tahap }}</span>
+                                <span class="sm:hidden">Sebelumnya</span>
                             </a>
                         @endif
                     </div>
                     <div>
                         @if($next)
-                            <a href="{{ route('frontend.tahapan.detail', $next) }}" class="inline-flex items-center gap-2 text-indigo-600 hover:text-indigo-800 font-semibold transition">
-                                Tahap {{ $next->urutan }}: {{ $next->nama_tahap }}
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                            <a href="{{ route('frontend.tahapan.detail', $next) }}" class="group inline-flex items-center gap-2 px-5 py-3 bg-indigo-600 text-white rounded-xl font-semibold hover:bg-indigo-700 transition-all duration-300 shadow-lg">
+                                <span class="hidden sm:inline">Tahap {{ $next->urutan }}: {{ $next->nama_tahap }}</span>
+                                <span class="sm:hidden">Selanjutnya</span>
+                                <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                             </a>
                         @endif
                     </div>

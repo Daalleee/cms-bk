@@ -31,10 +31,10 @@
                 @endphp
 
                 @if($videos->isNotEmpty())
-                    <h2 class="text-2xl font-bold text-gray-900 mb-8">Video Panduan</h2>
+                    <h2 data-reveal class="text-2xl font-bold text-gray-900 mb-8">Video Panduan</h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
                         @foreach($videos as $vid)
-                            <div class="bg-gray-50 rounded-2xl overflow-hidden shadow-lg">
+                            <div data-reveal class="bg-gray-50 rounded-2xl overflow-hidden shadow-lg card-hover">
                                 <div class="aspect-video bg-black">
                                     @if($vid->sumber === 'youtube' && $vid->youtube_id)
                                         <iframe class="w-full h-full" src="https://www.youtube.com/embed/{{ $vid->youtube_id }}" title="{{ $vid->nama ?? $areaKecanduan->nama_kecanduan }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -62,10 +62,10 @@
                 @endif
 
                 @if($fotos->isNotEmpty())
-                    <h2 class="text-2xl font-bold text-gray-900 mb-8">Galeri Foto</h2>
+                    <h2 data-reveal class="text-2xl font-bold text-gray-900 mb-8">Galeri Foto</h2>
                     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mb-16">
                         @foreach($fotos as $f)
-                            <div class="aspect-square rounded-2xl overflow-hidden bg-gray-100 shadow-lg">
+                            <div data-reveal class="aspect-square rounded-2xl overflow-hidden bg-gray-100 shadow-lg card-hover">
                                 <img src="{{ $f->url_media }}" class="w-full h-full object-cover" alt="{{ $f->nama ?? 'Foto' }}">
                             </div>
                         @endforeach
@@ -73,8 +73,8 @@
                 @endif
 
                 @if($detail->artikel_penanganan)
-                    <h2 class="text-2xl font-bold text-gray-900 mb-8">Panduan Penanganan</h2>
-                    <div class="bg-gray-50 rounded-2xl p-8 shadow-lg">
+                    <h2 data-reveal class="text-2xl font-bold text-gray-900 mb-8">Panduan Penanganan</h2>
+                    <div data-reveal class="bg-gray-50 rounded-2xl p-8 shadow-lg card-hover">
                         <div class="prose prose-indigo max-w-none text-gray-700 leading-relaxed">
                             {!! nl2br(e($detail->artikel_penanganan)) !!}
                         </div>

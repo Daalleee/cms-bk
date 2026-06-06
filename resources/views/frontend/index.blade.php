@@ -22,7 +22,7 @@
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="grid lg:grid-cols-2 gap-12 items-center">
-                <div class="text-center lg:text-left">
+                <div data-reveal class="text-center lg:text-left">
                     <h1 class="text-4xl sm:text-5xl lg:text-7xl font-black text-gray-900 leading-tight mb-6">
                         {{ $hero->judul ?? 'Pulihkan Diri dari Kecanduan, Raih Kembali Kendali Hidupmu' }}
                     </h1>
@@ -30,11 +30,13 @@
                         {{ $hero->sub_judul ?? 'Metode HypnoKonseling membantu Anda menjangkau akar masalah di pikiran bawah sadar untuk transformasi hidup yang nyata dan permanen.' }}
                     </p>
                     <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                        <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $hero->whatsapp_tujuan ?? $kontak->whatsapp ?? '') }}" target="_blank" class="px-10 py-5 bg-indigo-600 text-white font-extrabold rounded-2xl shadow-2xl shadow-indigo-200 hover:bg-indigo-700 hover:-translate-y-1 transition duration-300 text-lg text-center">
+                        <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $hero->whatsapp_tujuan ?? $kontak->whatsapp ?? '') }}" target="_blank" class="group px-10 py-5 bg-indigo-600 text-white font-extrabold rounded-2xl shadow-2xl shadow-indigo-200 hover:bg-indigo-700 hover:-translate-y-1 transition-all duration-300 text-lg text-center inline-flex items-center justify-center gap-2">
                             Mulai Konsultasi
+                            <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
                         </a>
-                        <a href="#tentang" class="px-10 py-5 bg-white text-gray-900 font-extrabold rounded-2xl border-2 border-gray-200 hover:bg-gray-50 hover:-translate-y-1 transition duration-300 text-lg text-center shadow-sm">
+                        <a href="#tentang" class="group px-10 py-5 bg-white text-gray-900 font-extrabold rounded-2xl border-2 border-gray-200 hover:bg-gray-50 hover:-translate-y-1 transition-all duration-300 text-lg text-center inline-flex items-center justify-center gap-2 shadow-sm">
                             Pelajari Metode
+                            <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
                         </a>
                     </div>
                     @if($testimonis->count() > 0)
@@ -74,7 +76,7 @@
             </a>
         @endif @endauth
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
+            <div data-reveal class="text-center mb-16">
                 <span class="inline-block px-4 py-1.5 bg-indigo-100 text-indigo-700 rounded-full text-sm font-semibold mb-4">Edukasi Dasar</span>
                 <h2 class="text-4xl sm:text-5xl font-black text-gray-900 mb-4">{{ $tentang->judul ?? 'Tentang HypnoKonseling' }}</h2>
                 @if($tentang && $tentang->pengantar)
@@ -86,7 +88,7 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 @forelse($sections as $section)
-                    <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 @if($sections->count() === 1) md:col-span-2 @endif">
+                    <div data-reveal class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 card-hover @if($sections->count() === 1) md:col-span-2 @endif">
                         @php $sectionVideos = $section->media->where('koleksi', 'video'); @endphp
                         @if($sectionVideos->isNotEmpty())
                             @php $v = $sectionVideos->first(); @endphp
@@ -121,16 +123,18 @@
             </a>
         @endif @endauth
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <span class="inline-block px-4 py-1.5 bg-indigo-100 text-indigo-700 rounded-full text-sm font-semibold mb-4">Metode Terstruktur</span>
-            <h2 class="text-4xl sm:text-5xl font-black text-gray-900 mb-4">Langkah Menuju Pemulihan</h2>
-            <p class="text-lg text-gray-600 max-w-2xl mx-auto mb-16">Setiap sesi dirancang secara sistematis untuk hasil yang optimal dan berkelanjutan.</p>
+            <div data-reveal>
+                <span class="inline-block px-4 py-1.5 bg-indigo-100 text-indigo-700 rounded-full text-sm font-semibold mb-4">Metode Terstruktur</span>
+                <h2 class="text-4xl sm:text-5xl font-black text-gray-900 mb-4">Langkah Menuju Pemulihan</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto mb-16">Setiap sesi dirancang secara sistematis untuk hasil yang optimal dan berkelanjutan.</p>
+            </div>
             <div class="relative">
                 <div class="absolute top-16 left-[40px] md:left-1/2 w-0.5 bg-indigo-200 -translate-x-1/2 hidden md:block pointer-events-none" style="bottom:4rem"></div>
                 <div class="space-y-12 relative">
                     @foreach($tahapans as $index => $tahap)
-                        <a href="{{ route('frontend.tahapan.detail', $tahap) }}" class="flex flex-col md:flex-row items-center gap-8 {{ $index % 2 == 0 ? 'md:flex-row' : 'md:flex-row-reverse' }} group">
+                        <a href="{{ route('frontend.tahapan.detail', $tahap) }}" data-reveal class="flex flex-col md:flex-row items-center gap-8 {{ $index % 2 == 0 ? 'md:flex-row' : 'md:flex-row-reverse' }} group">
                             <div class="flex-1 {{ $index % 2 == 0 ? 'md:text-right' : 'md:text-left' }}">
-                                <div class="bg-white p-6 rounded-2xl shadow-lg border border-gray-100 inline-block max-w-md group-hover:shadow-xl group-hover:border-indigo-300 transition-all duration-300">
+                                <div class="bg-white p-6 rounded-2xl shadow-lg border border-gray-100 inline-block max-w-md group-hover:shadow-xl group-hover:border-indigo-300 transition-all duration-300 card-hover">
                                     <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full">Tahap {{ $index + 1 }}</span>
                                     <h4 class="text-xl font-bold text-gray-900 mt-3 mb-2 group-hover:text-indigo-600 transition">{{ $tahap->nama_tahap }}</h4>
                                     <p class="text-gray-600 text-sm leading-relaxed">{{ Str::limit($tahap->deskripsi, 120) }}</p>
@@ -166,14 +170,14 @@
             </a>
         @endif @endauth
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
+            <div data-reveal class="text-center mb-16">
                 <span class="inline-block px-4 py-1.5 bg-indigo-100 text-indigo-700 rounded-full text-sm font-semibold mb-4">Yang Kami Tangani</span>
                 <h2 class="text-4xl sm:text-5xl font-black mb-4">Area Pemulihan Kecanduan</h2>
                 <p class="text-lg text-gray-500 max-w-2xl mx-auto">Klik pada setiap kategori untuk melihat video penanganan dan panduan lengkapnya.</p>
             </div>
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
                 @forelse($areas as $area)
-                    <a href="{{ route('frontend.area.detail', $area) }}" class="flex flex-col items-center group transition p-4 rounded-2xl hover:bg-indigo-50">
+                    <a href="{{ route('frontend.area.detail', $area) }}" data-reveal class="flex flex-col items-center group transition p-4 rounded-2xl hover:bg-indigo-50 hover:shadow-lg card-hover">
                         <div class="w-28 h-28 rounded-full bg-gray-100 border-2 border-gray-200 flex items-center justify-center mb-4 group-hover:bg-indigo-600 group-hover:border-indigo-500 transition duration-300 shadow-xl overflow-hidden">
                             @if($area->ikon)
                                 <img src="{{ asset('storage/' . $area->ikon) }}" class="w-full h-full object-cover group-hover:scale-110 transition duration-300" alt="{{ $area->nama_kecanduan }}">
@@ -204,7 +208,7 @@
             </a>
         @endif @endauth
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
+            <div data-reveal class="text-center mb-16">
                 <span class="inline-block px-4 py-1.5 bg-indigo-100 text-indigo-700 rounded-full text-sm font-semibold mb-4">Social Proof</span>
                 <h2 class="text-4xl sm:text-5xl font-black text-gray-900 mb-4">Cerita Mereka yang Pulih</h2>
                 <div class="w-24 h-1.5 bg-indigo-600 mx-auto rounded-full mb-8"></div>
@@ -212,7 +216,7 @@
             </div>
 
             @if($testimonis->count() > 0)
-                <div x-data="{ currentSlide: 0, slides: {{ $testimonis->count() }}, timer: null, init() { this.start(); }, start() { this.timer = setInterval(() => { this.next(); }, 4000); }, stop() { clearInterval(this.timer); this.timer = null; }, next() { this.currentSlide = this.currentSlide < this.slides - 1 ? this.currentSlide + 1 : 0; }, prev() { this.currentSlide = this.currentSlide > 0 ? this.currentSlide - 1 : this.slides - 1; }, goto(i) { this.currentSlide = i; } }" class="relative max-w-4xl mx-auto">
+                <div x-data="{ currentSlide: 0, slides: {{ $testimonis->count() }}, timer: null, init() { this.start(); }, start() { this.timer = setInterval(() => { this.next(); }, 4000); }, stop() { clearInterval(this.timer); this.timer = null; }, next() { this.currentSlide = this.currentSlide < this.slides - 1 ? this.currentSlide + 1 : 0; }, prev() { this.currentSlide = this.currentSlide > 0 ? this.currentSlide - 1 : this.slides - 1; }, goto(i) { this.currentSlide = i; } }" @mouseenter="stop()" @mouseleave="start()" data-reveal class="relative max-w-4xl mx-auto">
                     <div class="overflow-hidden rounded-3xl">
                         <div class="flex transition-transform duration-500 ease-in-out" :style="'transform: translateX(-' + (currentSlide * 100) + '%)'">
                             @foreach($testimonis as $testi)
@@ -253,7 +257,7 @@
             @endif
 
             <!-- FORM -->
-            <div class="max-w-2xl mx-auto mt-20 bg-white rounded-[3rem] p-8 md:p-12 text-gray-900 shadow-2xl border border-gray-100" id="form-testimoni">
+            <div data-reveal class="max-w-2xl mx-auto mt-20 bg-white rounded-[3rem] p-8 md:p-12 text-gray-900 shadow-2xl border border-gray-100 card-hover" id="form-testimoni">
                 <h4 class="text-2xl font-bold mb-8 text-center">Bagikan Pengalaman Anda</h4>
                 @if(session('success'))
                     <div class="bg-green-100 border border-green-400 text-green-700 p-4 rounded-xl mb-6 text-center font-medium">{{ session('success') }}</div>
@@ -311,7 +315,7 @@
             </a>
         @endif @endauth
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
+            <div data-reveal class="text-center mb-16">
                 <span class="inline-block px-4 py-1.5 bg-indigo-100 text-indigo-700 rounded-full text-sm font-semibold mb-4">Hubungi Kami</span>
                 <h2 class="text-4xl sm:text-5xl font-black text-gray-900 mb-4">Mulai Perubahan Hidup Anda</h2>
                 <p class="text-lg text-gray-600 max-w-2xl mx-auto">Ada pertanyaan atau ingin menjadwalkan konsultasi? Kami siap melayani Anda.</p>
@@ -319,7 +323,7 @@
 
             <div class="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
                 <div class="space-y-8">
-                    <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100">
+                    <div data-reveal class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 card-hover">
                         <h3 class="text-xl font-bold text-gray-900 mb-6">Informasi Kontak</h3>
                         <div class="space-y-5">
                             <div class="flex items-start gap-4">
