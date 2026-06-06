@@ -323,9 +323,9 @@
 
             <div class="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
                 <div class="h-full">
-                    <div data-reveal class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 card-hover h-full">
+                    <div data-reveal class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 card-hover h-full flex flex-col">
                         <h3 class="text-xl font-bold text-gray-900 mb-6">Informasi Kontak</h3>
-                        <div class="space-y-5">
+                        <div class="flex-1 space-y-5">
                             <div class="flex items-start gap-4">
                                 <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center text-indigo-600 shrink-0">
                                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
@@ -362,30 +362,30 @@
                                     <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $kontak->whatsapp ?? '') }}" target="_blank" class="text-indigo-600 hover:text-indigo-700 font-medium">{{ $kontak->whatsapp ?? '-' }}</a>
                                 </div>
                             </div>
-                            <div class="pt-4 border-t border-gray-100">
-                                <p class="font-semibold text-gray-900 mb-3">Ikuti Kami</p>
-                                <div class="flex flex-wrap gap-4">
-                                    @if($kontak && $kontak->youtube)
-                                        <a href="https://youtube.com/@{{ $kontak->youtube }}" target="_blank" class="text-red-600 hover:text-red-500 transition">
-                                            <svg class="w-8 h-8 fill-current" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-                                        </a>
-                                    @endif
-                                    @if($kontak && $kontak->instagram)
-                                        <a href="https://instagram.com/{{ $kontak->instagram }}" target="_blank" class="text-pink-600 hover:text-pink-500 transition">
-                                            <svg class="w-8 h-8 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0c-3.254 0-3.662.014-4.94.072-2.766.127-4.648 1.181-5.593 2.665-.78 1.225-1.023 2.705-1.062 4.191-.025.905-.025 1.185-.025 3.072s0 2.167.025 3.072c.039 1.486.282 2.966 1.062 4.191.945 1.484 2.828 2.538 5.593 2.665 1.278.057 1.686.072 4.94.072 3.254 0 3.662-.015 4.94-.072 2.766-.127 4.648-1.181 5.593-2.665.78-1.225 1.023-2.705 1.062-4.191.025-.905.025-1.185.025-3.072s0-2.167-.025-3.072c-.039-1.486-.282-2.966-1.062-4.191-.945-1.484-2.828-2.538-5.593-2.665C15.662.014 15.254 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.405-10.405a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"/></svg>
-                                        </a>
-                                    @endif
-                                    @if($kontak && $kontak->facebook)
-                                        <a href="https://facebook.com/{{ $kontak->facebook }}" target="_blank" class="text-blue-600 hover:text-blue-500 transition">
-                                            <svg class="w-8 h-8 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-                                        </a>
-                                    @endif
-                                    @if($kontak && $kontak->twitter)
-                                        <a href="https://twitter.com/{{ $kontak->twitter }}" target="_blank" class="text-sky-500 hover:text-sky-400 transition">
-                                            <svg class="w-8 h-8 fill-current" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                                        </a>
-                                    @endif
-                                </div>
+                        </div>
+                        <div class="pt-4 border-t border-gray-100 mt-auto">
+                            <p class="font-semibold text-gray-900 mb-3">Ikuti Kami</p>
+                            <div class="flex flex-wrap gap-4">
+                                @if($kontak && $kontak->youtube)
+                                    <a href="https://youtube.com/@{{ $kontak->youtube }}" target="_blank" class="text-red-600 hover:text-red-500 transition">
+                                        <svg class="w-8 h-8 fill-current" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                                    </a>
+                                @endif
+                                @if($kontak && $kontak->instagram)
+                                    <a href="https://instagram.com/{{ $kontak->instagram }}" target="_blank" class="text-pink-600 hover:text-pink-500 transition">
+                                        <svg class="w-8 h-8 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0c-3.254 0-3.662.014-4.94.072-2.766.127-4.648 1.181-5.593 2.665-.78 1.225-1.023 2.705-1.062 4.191-.025.905-.025 1.185-.025 3.072s0 2.167.025 3.072c.039 1.486.282 2.966 1.062 4.191.945 1.484 2.828 2.538 5.593 2.665 1.278.057 1.686.072 4.94.072 3.254 0 3.662-.015 4.94-.072 2.766-.127 4.648-1.181 5.593-2.665.78-1.225 1.023-2.705 1.062-4.191.025-.905.025-1.185.025-3.072s0-2.167-.025-3.072c-.039-1.486-.282-2.966-1.062-4.191-.945-1.484-2.828-2.538-5.593-2.665C15.662.014 15.254 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.405-10.405a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"/></svg>
+                                    </a>
+                                @endif
+                                @if($kontak && $kontak->facebook)
+                                    <a href="https://facebook.com/{{ $kontak->facebook }}" target="_blank" class="text-blue-600 hover:text-blue-500 transition">
+                                        <svg class="w-8 h-8 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                                    </a>
+                                @endif
+                                @if($kontak && $kontak->twitter)
+                                    <a href="https://twitter.com/{{ $kontak->twitter }}" target="_blank" class="text-sky-500 hover:text-sky-400 transition">
+                                        <svg class="w-8 h-8 fill-current" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                                    </a>
+                                @endif
                             </div>
                         </div>
                     </div>
