@@ -4,7 +4,7 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ __('Testimoni') }}
             </h2>
-            <a href="{{ route('testimoni.create') }}" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
+            <a href="{{ route('admin.testimoni.create') }}" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
                 Tambah Testimoni
             </a>
         </div>
@@ -13,9 +13,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             @if (session('success'))
-                <div class="mb-4 font-medium text-sm text-green-600">
-                    {{ session('success') }}
-                </div>
+                <div class="mb-4 font-medium text-sm text-green-600">{{ session('success') }}</div>
             @endif
 
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -35,13 +33,20 @@
                                     <td class="px-6 py-4 whitespace-nowrap">{{ $testimoni->nama }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">{{ $testimoni->rating }} / 5</td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ $testimoni->status ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
-                                            {{ $testimoni->status ? 'Tampil' : 'Sembunyi' }}
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ $testimoni->status_publikasi ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800' }}">
+                                            {{ $testimoni->status_publikasi ? 'Ditampilkan' : 'Menunggu' }}
                                         </span>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                        <a href="{{ route('testimoni.edit', $testimoni) }}" class="text-indigo-600 hover:text-indigo-900 mr-3">Edit</a>
-                                        <form action="{{ route('testimoni.destroy', $testimoni) }}" method="POST" class="inline">
+                                        @if(!$testimoni->status_publikasi)
+                                            <form action="{{ route('admin.testimoni.approve', $testimoni) }}" method="POST" class="inline">
+                                                @csrf
+                                                @method('PATCH')
+                                                <button type="submit" class="text-green-600 hover:text-green-900 mr-3">Setujui</button>
+                                            </form>
+                                        @endif
+                                        <a href="{{ route('admin.testimoni.edit', $testimoni) }}" class="text-indigo-600 hover:text-indigo-900 mr-3">Edit</a>
+                                        <form action="{{ route('admin.testimoni.destroy', $testimoni) }}" method="POST" class="inline">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="text-red-600 hover:text-red-900" onclick="return confirm('Apakah Anda yakin?')">Hapus</button>

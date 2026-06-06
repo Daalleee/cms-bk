@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\LogAktivitas;
 use App\Models\Testimoni;
 use Illuminate\Http\Request;
 
@@ -25,12 +26,18 @@ class TestimoniController extends Controller
             'pekerjaan' => 'nullable|string|max:255',
             'isi_testimoni' => 'required|string',
             'rating' => 'required|integer|min:1|max:5',
-            'status' => 'boolean',
+            'status_publikasi' => 'boolean',
         ]);
 
         Testimoni::create($validated);
 
-        return redirect()->route('testimoni.index')->with('success', 'Testimoni berhasil ditambahkan.');
+        LogAktivitas::create([
+            'pengguna_id' => auth()->id(),
+            'aktivitas' => 'Menambah testimoni dari: ' . $validated['nama'],
+            'alamat_ip' => $request->ip(),
+        ]);
+
+        return redirect()->route('admin.testimoni.index')->with('success', 'Testimoni berhasil ditambahkan.');
     }
 
     public function edit(Testimoni $testimoni)
@@ -45,17 +52,44 @@ class TestimoniController extends Controller
             'pekerjaan' => 'nullable|string|max:255',
             'isi_testimoni' => 'required|string',
             'rating' => 'required|integer|min:1|max:5',
-            'status' => 'boolean',
+            'status_publikasi' => 'boolean',
         ]);
 
         $testimoni->update($validated);
 
-        return redirect()->route('testimoni.index')->with('success', 'Testimoni berhasil diperbarui.');
+        LogAktivitas::create([
+            'pengguna_id' => auth()->id(),
+            'aktivitas' => 'Memperbarui testimoni dari: ' . $validated['nama'],
+            'alamat_ip' => $request->ip(),
+        ]);
+
+        return redirect()->route('admin.testimoni.index')->with('success', 'Testimoni berhasil diperbarui.');
     }
 
     public function destroy(Testimoni $testimoni)
     {
+        $nama = $testimoni->nama;
         $testimoni->delete();
-        return redirect()->route('testimoni.index')->with('success', 'Testimoni berhasil dihapus.');
+
+        LogAktivitas::create([
+            'pengguna_id' => auth()->id(),
+            'aktivitas' => 'Menghapus testimoni dari: ' . $nama,
+            'alamat_ip' => request()->ip(),
+        ]);
+
+        return redirect()->route('admin.testimoni.index')->with('success', 'Testimoni berhasil dihapus.');
+    }
+
+    public function approve(Testimoni $testimoni)
+    {
+        $testimoni->update(['status_publikasi' => true]);
+
+        LogAktivitas::create([
+            'pengguna_id' => auth()->id(),
+            'aktivitas' => 'Menyetujui testimoni dari: ' . $testimoni->nama,
+            'alamat_ip' => request()->ip(),
+        ]);
+
+        return redirect()->route('admin.testimoni.index')->with('success', 'Testimoni berhasil disetujui dan sekarang tampil di website.');
     }
 }

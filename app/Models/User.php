@@ -29,6 +29,7 @@ class User extends Authenticatable
         'nama',
         'email',
         'kata_sandi',
+        'peran',
     ];
 
     /**

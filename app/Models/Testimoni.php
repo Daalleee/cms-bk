@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class Testimoni extends Model
 {
     protected $table = 'testimoni';
-    protected $fillable = ['nama', 'pekerjaan', 'foto', 'isi_testimoni', 'rating', 'status'];
+    protected $fillable = ['nama', 'pekerjaan', 'isi_testimoni', 'rating', 'status_publikasi'];
 }

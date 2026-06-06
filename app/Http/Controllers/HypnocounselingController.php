@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Hypnocounseling;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class HypnocounselingController extends Controller
 {
@@ -20,10 +21,18 @@ class HypnocounselingController extends Controller
             'deskripsi' => 'required|string',
             'manfaat' => 'required|string',
             'prosedur' => 'required|string',
-            'gambar' => 'nullable|string',
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         $data = Hypnocounseling::first();
+
+        if ($request->hasFile('gambar')) {
+            if ($data && $data->gambar) {
+                Storage::disk('public')->delete($data->gambar);
+            }
+            $validated['gambar'] = $request->file('gambar')->store('hypnocounseling', 'public');
+        }
+
         if ($data) {
             $data->update($validated);
         } else {

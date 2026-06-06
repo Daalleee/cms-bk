@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ProfilWebsite;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProfilWebsiteController extends Controller
 {
@@ -20,10 +21,18 @@ class ProfilWebsiteController extends Controller
             'profil' => 'required|string',
             'visi' => 'required|string',
             'misi' => 'required|string',
-            'gambar' => 'nullable|string',
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         $profil = ProfilWebsite::first();
+
+        if ($request->hasFile('gambar')) {
+            if ($profil && $profil->gambar) {
+                Storage::disk('public')->delete($profil->gambar);
+            }
+            $validated['gambar'] = $request->file('gambar')->store('profil', 'public');
+        }
+
         if ($profil) {
             $profil->update($validated);
         } else {

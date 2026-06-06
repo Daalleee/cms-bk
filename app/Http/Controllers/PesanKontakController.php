@@ -22,6 +22,6 @@ class PesanKontakController extends Controller
     public function destroy(PesanKontak $pesanMasuk)
     {
         $pesanMasuk->delete();
-        return redirect()->route('pesan-masuk.index')->with('success', 'Pesan berhasil dihapus.');
+        return redirect()->route('admin.pesan-masuk.index')->with('success', 'Pesan berhasil dihapus.');
     }
 }

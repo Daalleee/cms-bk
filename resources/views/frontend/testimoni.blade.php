@@ -22,9 +22,13 @@
                         </div>
                         <p class="text-gray-700 italic leading-relaxed mb-8">"{{ $testi->isi_testimoni }}"</p>
                         <div class="flex items-center mt-auto pt-6 border-t border-gray-200">
-                            <div class="w-10 h-10 bg-indigo-600 rounded-full flex items-center justify-center font-bold text-white text-lg">
-                                {{ substr($testi->nama, 0, 1) }}
-                            </div>
+                            @if($testi->foto)
+                                <img src="{{ asset('storage/' . $testi->foto) }}" alt="{{ $testi->nama }}" class="w-10 h-10 rounded-full object-cover">
+                            @else
+                                <div class="w-10 h-10 bg-indigo-600 rounded-full flex items-center justify-center font-bold text-white text-lg uppercase">
+                                    {{ substr($testi->nama, 0, 1) }}
+                                </div>
+                            @endif
                             <div class="ms-4">
                                 <p class="font-bold text-gray-900">{{ $testi->nama }}</p>
                                 <p class="text-gray-500 text-sm">{{ $testi->pekerjaan }}</p>

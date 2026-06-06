@@ -15,7 +15,7 @@
 
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    <form action="{{ route('hypnocounseling.store') }}" method="POST">
+                    <form action="{{ route('hypnocounseling.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-4">
                             <x-input-label for="judul" :value="__('Judul')" />
@@ -27,6 +27,17 @@
                             <x-input-label for="deskripsi" :value="__('Deskripsi')" />
                             <textarea id="deskripsi" name="deskripsi" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" rows="4" required>{{ old('deskripsi', $data->deskripsi ?? '') }}</textarea>
                             <x-input-error :messages="$errors->get('deskripsi')" class="mt-2" />
+                        </div>
+
+                        <div class="mb-4">
+                            <x-input-label for="gambar" :value="__('Gambar')" />
+                            @if(isset($data) && $data->gambar)
+                                <div class="mt-2 mb-2">
+                                    <img src="{{ Storage::url($data->gambar) }}" alt="Preview Gambar" class="h-20 w-20 object-cover rounded-md">
+                                </div>
+                            @endif
+                            <input id="gambar" type="file" name="gambar" class="block mt-1 w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" />
+                            <x-input-error :messages="$errors->get('gambar')" class="mt-2" />
                         </div>
 
                         <div class="mb-4">

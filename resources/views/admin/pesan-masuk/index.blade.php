@@ -37,8 +37,8 @@
                                         </span>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                        <a href="{{ route('pesan-masuk.show', $pesan) }}" class="text-indigo-600 hover:text-indigo-900 mr-3">Lihat</a>
-                                        <form action="{{ route('pesan-masuk.destroy', $pesan) }}" method="POST" class="inline">
+                                        <a href="{{ route('admin.pesan-masuk.show', $pesan) }}" class="text-indigo-600 hover:text-indigo-900 mr-3">Lihat</a>
+                                        <form action="{{ route('admin.pesan-masuk.destroy', $pesan) }}" method="POST" class="inline">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="text-red-600 hover:text-red-900" onclick="return confirm('Apakah Anda yakin?')">Hapus</button>

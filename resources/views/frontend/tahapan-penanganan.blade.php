@@ -32,6 +32,13 @@
                                         <h2 class="text-xl font-bold text-gray-900">Tahap {{ $tahapan->urutan }}: {{ $tahapan->nama_tahap }}</h2>
                                     </div>
                                     <h2 class="text-xl font-bold text-gray-900 mb-4 hidden md:block">Tahap {{ $tahapan->urutan }}: {{ $tahapan->nama_tahap }}</h2>
+                                    
+                                    @if($tahapan->gambar)
+                                        <div class="mb-6 rounded-xl overflow-hidden shadow-sm max-h-48">
+                                            <img src="{{ asset('storage/' . $tahapan->gambar) }}" alt="{{ $tahapan->nama_tahap }}" class="w-full h-full object-cover">
+                                        </div>
+                                    @endif
+
                                     <p class="text-gray-600 leading-relaxed">{{ $tahapan->deskripsi }}</p>
                                 </div>
                             </div>

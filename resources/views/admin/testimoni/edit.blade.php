@@ -9,7 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    <form action="{{ route('testimoni.update', $testimoni) }}" method="POST">
+                    <form action="{{ route('admin.testimoni.update', $testimoni) }}" method="POST">
                         @csrf
                         @method('PUT')
                         <div class="mb-4">
@@ -41,18 +41,16 @@
                         </div>
 
                         <div class="mb-4">
-                            <x-input-label for="status" :value="__('Status')" />
-                            <select id="status" name="status" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
-                                <option value="1" {{ old('status', $testimoni->status) == '1' ? 'selected' : '' }}>Tampil</option>
-                                <option value="0" {{ old('status', $testimoni->status) == '0' ? 'selected' : '' }}>Sembunyi</option>
+                            <x-input-label for="status_publikasi" :value="__('Status')" />
+                            <select id="status_publikasi" name="status_publikasi" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
+                                <option value="1" {{ old('status_publikasi', $testimoni->status_publikasi) == '1' ? 'selected' : '' }}>Ditampilkan</option>
+                                <option value="0" {{ old('status_publikasi', $testimoni->status_publikasi) == '0' ? 'selected' : '' }}>Menunggu</option>
                             </select>
-                            <x-input-error :messages="$errors->get('status')" class="mt-2" />
+                            <x-input-error :messages="$errors->get('status_publikasi')" class="mt-2" />
                         </div>
 
                         <div class="flex items-center justify-end mt-4">
-                            <x-primary-button>
-                                {{ __('Perbarui') }}
-                            </x-primary-button>
+                            <x-primary-button>{{ __('Perbarui') }}</x-primary-button>
                         </div>
                     </form>
                 </div>

@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AreaPenanganan;
-use App\Models\Hypnocounseling;
+use App\Models\AreaKecanduan;
+use App\Models\DetailPenanganan;
+use App\Models\HeroSection;
 use App\Models\Kontak;
 use App\Models\PesanKontak;
-use App\Models\ProfilWebsite;
 use App\Models\TahapanPenanganan;
+use App\Models\TentangKami;
+use App\Models\TentangSection;
 use App\Models\Testimoni;
 use Illuminate\Http\Request;
 
@@ -15,63 +17,57 @@ class FrontendController extends Controller
 {
     public function index()
     {
-        $profil = ProfilWebsite::first();
-        $hypno = Hypnocounseling::first();
-        $areas = AreaPenanganan::where('status', true)->take(6)->get();
-        $tahapans = TahapanPenanganan::orderBy('urutan')->take(4)->get();
-        $testimonis = Testimoni::where('status', true)->latest()->take(3)->get();
+        $hero = HeroSection::first();
+        $tentang = TentangKami::first();
+        $sections = TentangSection::orderBy('urutan')->get();
+        $tahapans = TahapanPenanganan::orderBy('urutan')->get();
+        $areas = AreaKecanduan::where('status', true)->orderBy('urutan')->with('detailPenanganan.media')->get();
+        $testimonis = Testimoni::where('status_publikasi', true)->latest()->take(10)->get();
         $kontak = Kontak::first();
 
-        return view('frontend.index', compact('profil', 'hypno', 'areas', 'tahapans', 'testimonis', 'kontak'));
+        return view('frontend.index', compact('hero', 'tentang', 'sections', 'tahapans', 'areas', 'testimonis', 'kontak'));
     }
 
-    public function tentangKami()
+    public function storeTestimoni(Request $request)
     {
-        $profil = ProfilWebsite::first();
-        $kontak = Kontak::first();
-        return view('frontend.tentang-kami', compact('profil', 'kontak'));
+        $validated = $request->validate([
+            'nama' => 'required|string|max:255',
+            'pekerjaan' => 'nullable|string|max:255',
+            'isi_testimoni' => 'required|string',
+            'rating' => 'required|integer|min:1|max:5',
+        ]);
+
+        $validated['status_publikasi'] = false;
+
+        Testimoni::create($validated);
+
+        return redirect()->back()->with('success', 'Testimoni Anda telah terkirim dan akan ditinjau oleh tim kami. Terima kasih!');
     }
 
-    public function hypnocounseling()
+    public function tentang()
     {
-        $hypno = Hypnocounseling::first();
+        $hero = HeroSection::first();
         $kontak = Kontak::first();
-        return view('frontend.hypnocounseling', compact('hypno', 'kontak'));
+        $tentang = TentangKami::first();
+        $sections = TentangSection::orderBy('urutan')->get();
+        return view('frontend.tentang', compact('hero', 'kontak', 'tentang', 'sections'));
     }
 
-    public function areaPenanganan()
+    public function areaDetail(AreaKecanduan $areaKecanduan)
     {
-        $areas = AreaPenanganan::where('status', true)->get();
+        $hero = HeroSection::first();
         $kontak = Kontak::first();
-        return view('frontend.area-penanganan', compact('areas', 'kontak'));
+        $areaKecanduan->load('detailPenanganan.media');
+        $areas = AreaKecanduan::where('status', true)->orderBy('urutan')->get();
+        return view('frontend.area-detail', compact('hero', 'kontak', 'areaKecanduan', 'areas'));
     }
 
-    public function tahapanPenanganan()
+    public function tahapanDetail(TahapanPenanganan $tahapan)
     {
         $tahapans = TahapanPenanganan::orderBy('urutan')->get();
+        $hero = HeroSection::first();
         $kontak = Kontak::first();
-        return view('frontend.tahapan-penanganan', compact('tahapans', 'kontak'));
-    }
-
-    public function testimoni()
-    {
-        $testimonis = Testimoni::where('status', true)->latest()->get();
-        $kontak = Kontak::first();
-        return view('frontend.testimoni', compact('testimonis', 'kontak'));
-    }
-
-    public function galeri()
-    {
-        $galeris = \App\Models\Galeri::latest()->get();
-        $kontak = Kontak::first();
-        $profil = ProfilWebsite::first();
-        return view('frontend.galeri', compact('galeris', 'kontak', 'profil'));
-    }
-
-    public function kontak()
-    {
-        $kontak = Kontak::first();
-        return view('frontend.kontak', compact('kontak'));
+        return view('frontend.tahapan-detail', compact('tahapan', 'tahapans', 'hero', 'kontak'));
     }
 
     public function kirimPesan(Request $request)
@@ -86,6 +82,6 @@ class FrontendController extends Controller
 
         PesanKontak::create($validated);
 
-        return redirect()->back()->with('success', 'Pesan Anda telah berhasil dikirim. Terima kasih!');
+        return redirect()->back()->with('success_pesan', 'Pesan Anda telah berhasil dikirim. Terima kasih!');
     }
 }
