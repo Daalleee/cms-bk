@@ -26,7 +26,18 @@ class KontakController extends Controller
             'youtube' => 'nullable|string|max:255',
             'facebook' => 'nullable|string|max:255',
             'twitter' => 'nullable|string|max:255',
+            'tampilkan_youtube' => 'nullable|boolean',
+            'tampilkan_instagram' => 'nullable|boolean',
+            'tampilkan_facebook' => 'nullable|boolean',
+            'tampilkan_twitter' => 'nullable|boolean',
+            'tampilkan_tiktok' => 'nullable|boolean',
         ]);
+
+        $validated['tampilkan_youtube'] = $request->boolean('tampilkan_youtube');
+        $validated['tampilkan_instagram'] = $request->boolean('tampilkan_instagram');
+        $validated['tampilkan_facebook'] = $request->boolean('tampilkan_facebook');
+        $validated['tampilkan_twitter'] = $request->boolean('tampilkan_twitter');
+        $validated['tampilkan_tiktok'] = $request->boolean('tampilkan_tiktok');
 
         $kontak = Kontak::first();
         if ($kontak) {
