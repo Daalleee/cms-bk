@@ -7,9 +7,6 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <span class="inline-block px-4 py-1 bg-indigo-800 text-indigo-200 rounded-full text-sm font-semibold mb-3">Area Pemulihan</span>
             <div class="flex items-center justify-center gap-4 mb-4">
-                @if($areaKecanduan->ikon)
-                    <img src="{{ asset('storage/' . $areaKecanduan->ikon) }}" class="w-16 h-16 rounded-full object-cover border-2 border-indigo-400" alt="{{ $areaKecanduan->nama_kecanduan }}">
-                @endif
                 <h1 class="text-4xl font-bold text-white">{{ $areaKecanduan->nama_kecanduan }}</h1>
             </div>
             <div class="flex flex-wrap items-center justify-center gap-2 mt-4">

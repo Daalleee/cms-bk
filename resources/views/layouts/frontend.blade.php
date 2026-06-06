@@ -28,7 +28,7 @@
 </head>
 <body class="font-sans antialiased bg-gray-50" x-data="{ mobileOpen: false, scrolled: false }" x-init="window.addEventListener('scroll', () => { scrolled = window.scrollY > 50 })">
 
-    <nav :class="scrolled ? 'bg-white shadow-lg py-2' : 'bg-white/95 backdrop-blur-md py-4'" class="fixed w-full top-0 z-50 transition-all duration-300">
+    <nav class="bg-white shadow-sm fixed w-full top-0 z-50 py-4 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <a href="/#hero" class="flex items-center gap-3 shrink-0">
