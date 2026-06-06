@@ -212,7 +212,7 @@
             </div>
 
             @if($testimonis->count() > 0)
-                <div x-data="{ currentSlide: 0, slides: {{ $testimonis->count() }} }" class="relative max-w-4xl mx-auto">
+                <div x-data="{ currentSlide: 0, slides: {{ $testimonis->count() }}, timer: null, init() { this.start(); }, start() { this.timer = setInterval(() => { this.next(); }, 4000); }, stop() { clearInterval(this.timer); this.timer = null; }, next() { this.currentSlide = this.currentSlide < this.slides - 1 ? this.currentSlide + 1 : 0; }, prev() { this.currentSlide = this.currentSlide > 0 ? this.currentSlide - 1 : this.slides - 1; }, goto(i) { this.currentSlide = i; } }" class="relative max-w-4xl mx-auto">
                     <div class="overflow-hidden rounded-3xl">
                         <div class="flex transition-transform duration-500 ease-in-out" :style="'transform: translateX(-' + (currentSlide * 100) + '%)'">
                             @foreach($testimonis as $testi)
@@ -233,15 +233,15 @@
                         </div>
                     </div>
                     @if($testimonis->count() > 1)
-                        <button @click="currentSlide = currentSlide > 0 ? currentSlide - 1 : slides - 1" class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 w-12 h-12 bg-white rounded-full shadow-xl flex items-center justify-center text-gray-600 hover:text-indigo-600 transition border border-gray-100">
+                        <button @click="stop(); prev(); start()" class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 w-12 h-12 bg-white rounded-full shadow-xl flex items-center justify-center text-gray-600 hover:text-indigo-600 transition border border-gray-100">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
                         </button>
-                        <button @click="currentSlide = currentSlide < slides - 1 ? currentSlide + 1 : 0" class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 w-12 h-12 bg-white rounded-full shadow-xl flex items-center justify-center text-gray-600 hover:text-indigo-600 transition border border-gray-100">
+                        <button @click="stop(); next(); start()" class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 w-12 h-12 bg-white rounded-full shadow-xl flex items-center justify-center text-gray-600 hover:text-indigo-600 transition border border-gray-100">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                         </button>
                         <div class="flex justify-center gap-2 mt-8">
                             @foreach($testimonis as $i => $testi)
-                                <button @click="currentSlide = {{ $i }}" :class="currentSlide === {{ $i }} ? 'bg-indigo-600 w-8' : 'bg-gray-300 w-3'" class="h-3 rounded-full transition-all duration-300"></button>
+                                <button @click="stop(); goto({{ $i }}); start()" :class="currentSlide === {{ $i }} ? 'bg-indigo-600 w-8' : 'bg-gray-300 w-3'" class="h-3 rounded-full transition-all duration-300"></button>
                             @endforeach
                         </div>
                     @endif
