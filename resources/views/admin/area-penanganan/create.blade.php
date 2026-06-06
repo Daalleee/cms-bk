@@ -24,7 +24,7 @@
                         </div>
 
                         <div class="mb-4">
-                            <x-input-label for="ikon" :value="__('Ikon (Image)'))" />
+                            <x-input-label for="ikon" :value="__('Ikon (Image)')" />
                             <input id="ikon" name="ikon" type="file" class="block mt-1 w-full border border-gray-300 rounded-md shadow-sm" accept="image/*" />
                             <p class="text-xs text-gray-500 mt-1">Format: JPG, PNG, SVG (Max 2MB)</p>
                             <x-input-error :messages="$errors->get('ikon')" class="mt-2" />
