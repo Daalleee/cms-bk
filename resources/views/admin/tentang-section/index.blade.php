@@ -98,7 +98,7 @@ function tentangManager() {
         },
 
         saveAll() {
-            if (!this.pengantar.judul) return alert('Judul harus diisi');
+            if (!this.pengantar.judul) return window.dispatchEvent(new CustomEvent('toast', { detail: { message: 'Judul harus diisi', type: 'warning' } }));
             this.saving = true;
 
             const existing = this.sections.filter(s => s.id > 0);
@@ -137,8 +137,8 @@ function tentangManager() {
             );
 
             Promise.all([savePengantar, ...addPromises])
-                .then(() => { alert('Semua perubahan berhasil disimpan'); })
-                .catch(() => { alert('Gagal menyimpan'); })
+                .then(() => { window.dispatchEvent(new CustomEvent('toast', { detail: { message: 'Semua perubahan berhasil disimpan', type: 'success' } })); })
+                .catch(() => { window.dispatchEvent(new CustomEvent('toast', { detail: { message: 'Gagal menyimpan perubahan', type: 'error' } })); })
                 .finally(() => { this.saving = false; });
         }
     };

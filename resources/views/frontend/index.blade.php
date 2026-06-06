@@ -12,7 +12,7 @@
 
 @section('content')
     <!-- HERO -->
-    <section id="hero" class="relative bg-gradient-to-br from-indigo-50 via-white to-purple-50 overflow-hidden min-h-[90vh] flex items-center pt-28 scroll-mt-24">
+    <section id="hero" class="relative bg-gradient-to-br from-indigo-50 via-white to-purple-50 overflow-hidden min-h-[90vh] flex items-center pt-28">
         @auth @if($isSuperAdmin)
             <a href="{{ route('admin.hero-section.index') }}" class="absolute top-24 right-4 z-20 bg-indigo-600 text-white px-3 py-1.5 rounded-full text-xs font-bold shadow-lg hover:bg-indigo-700 transition flex items-center gap-1.5">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
@@ -53,9 +53,9 @@
                     <div class="absolute -bottom-20 -left-20 w-96 h-96 bg-purple-100 rounded-full mix-blend-multiply filter blur-3xl opacity-70"></div>
                     <div class="relative">
                         @if($hero && $hero->gambar)
-                            <img src="{{ asset('storage/' . $hero->gambar) }}" alt="Hero Illustration" class="w-full h-auto rounded-3xl shadow-2xl rotate-3 hover:rotate-0 transition duration-500">
+                            <img src="{{ asset('storage/' . $hero->gambar) }}" alt="Hero Illustration" class="w-full h-auto rounded-3xl shadow-2xl">
                         @else
-                            <div class="w-full aspect-square bg-gradient-to-br from-indigo-500 to-purple-600 rounded-3xl shadow-2xl flex items-center justify-center p-16 rotate-3 hover:rotate-0 transition duration-500">
+                            <div class="w-full aspect-square bg-gradient-to-br from-indigo-500 to-purple-600 rounded-3xl shadow-2xl flex items-center justify-center p-16">
                                 <svg class="w-full h-full text-white/20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
                             </div>
                         @endif
@@ -66,7 +66,7 @@
     </section>
 
     <!-- TENTANG -->
-    <section id="tentang" class="py-24 bg-white relative scroll-mt-24">
+    <section id="tentang" class="py-16 bg-white relative">
         @auth @if($isSuperAdmin)
             <a href="{{ route('admin.tentang-section.index') }}" class="absolute top-4 right-4 z-20 bg-indigo-600 text-white px-3 py-1.5 rounded-full text-xs font-bold shadow-lg hover:bg-indigo-700 transition flex items-center gap-1.5">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
@@ -113,7 +113,7 @@
     </section>
 
     <!-- ALUR -->
-    <section id="alur" class="py-24 bg-gray-50 relative scroll-mt-24">
+    <section id="alur" class="py-16 bg-gray-50 relative">
         @auth @if($isSuperAdmin)
             <a href="{{ route('admin.tahapan-penanganan.index') }}" class="absolute top-4 right-4 z-20 bg-indigo-600 text-white px-3 py-1.5 rounded-full text-xs font-bold shadow-lg hover:bg-indigo-700 transition flex items-center gap-1.5">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
@@ -123,7 +123,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <span class="inline-block px-4 py-1.5 bg-indigo-100 text-indigo-700 rounded-full text-sm font-semibold mb-4">Metode Terstruktur</span>
             <h2 class="text-4xl sm:text-5xl font-black text-gray-900 mb-4">Langkah Menuju Pemulihan</h2>
-            <p class="text-lg text-gray-600 max-w-2xl mx-auto mb-20">Setiap sesi dirancang secara sistematis untuk hasil yang optimal dan berkelanjutan.</p>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto mb-16">Setiap sesi dirancang secara sistematis untuk hasil yang optimal dan berkelanjutan.</p>
             <div class="relative">
                 <div class="absolute top-16 left-[40px] md:left-1/2 w-0.5 bg-indigo-200 -translate-x-1/2 hidden md:block pointer-events-none" style="bottom:4rem"></div>
                 <div class="space-y-12 relative">
@@ -158,7 +158,7 @@
     </section>
 
     <!-- AREA KECANDUAN -->
-    <section id="area" class="py-24 bg-white text-gray-900 relative scroll-mt-24">
+    <section id="area" class="py-16 bg-white text-gray-900 relative">
         @auth @if($isAdmin)
             <a href="{{ route('admin.area-kecanduan.index') }}" class="absolute top-4 right-4 z-20 bg-indigo-600 text-white px-3 py-1.5 rounded-full text-xs font-bold shadow-lg hover:bg-indigo-700 transition flex items-center gap-1.5">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
@@ -196,7 +196,7 @@
     </section>
 
     <!-- TESTIMONI -->
-    <section id="testimoni" class="py-24 bg-white relative scroll-mt-24">
+    <section id="testimoni" class="py-16 bg-white relative">
         @auth @if($isAdmin)
             <a href="{{ route('admin.testimoni.index') }}" class="absolute top-4 right-4 z-20 bg-indigo-600 text-white px-3 py-1.5 rounded-full text-xs font-bold shadow-lg hover:bg-indigo-700 transition flex items-center gap-1.5">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
@@ -303,7 +303,7 @@
     </section>
 
     <!-- KONTAK -->
-    <section id="kontak" class="py-24 bg-gray-50 relative scroll-mt-24">
+    <section id="kontak" class="py-16 bg-gray-50 relative">
         @auth @if($isAdmin)
             <a href="{{ route('admin.kontak.index') }}" class="absolute top-4 right-4 z-20 bg-indigo-600 text-white px-3 py-1.5 rounded-full text-xs font-bold shadow-lg hover:bg-indigo-700 transition flex items-center gap-1.5">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>

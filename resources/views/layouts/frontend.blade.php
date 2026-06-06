@@ -13,7 +13,7 @@
         [x-cloak] { display: none !important; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        html { scroll-behavior: smooth; scroll-padding-top: 100px; }
+        html { scroll-behavior: smooth; scroll-padding-top: 80px; }
     </style>
 </head>
 <body class="font-sans antialiased bg-gray-50" x-data="{ mobileOpen: false, scrolled: false }" x-init="window.addEventListener('scroll', () => { scrolled = window.scrollY > 50 })">
@@ -28,7 +28,7 @@
 
                 <div class="hidden md:flex items-center space-x-1 lg:space-x-8">
                     <a href="/#hero" class="px-3 py-2 text-sm font-semibold text-gray-700 hover:text-indigo-600 transition rounded-lg hover:bg-indigo-50">Beranda</a>
-                    <a href="/tentang" class="px-3 py-2 text-sm font-semibold text-gray-700 hover:text-indigo-600 transition rounded-lg hover:bg-indigo-50">Tentang</a>
+                    <a href="/#tentang" class="px-3 py-2 text-sm font-semibold text-gray-700 hover:text-indigo-600 transition rounded-lg hover:bg-indigo-50">Tentang</a>
                     <a href="/#alur" class="px-3 py-2 text-sm font-semibold text-gray-700 hover:text-indigo-600 transition rounded-lg hover:bg-indigo-50">Alur</a>
                     <a href="/#area" class="px-3 py-2 text-sm font-semibold text-gray-700 hover:text-indigo-600 transition rounded-lg hover:bg-indigo-50">Area</a>
                     <a href="/#testimoni" class="px-3 py-2 text-sm font-semibold text-gray-700 hover:text-indigo-600 transition rounded-lg hover:bg-indigo-50">Testimoni</a>
@@ -50,7 +50,7 @@
         <div x-show="mobileOpen" x-cloak @click.outside="mobileOpen = false" class="md:hidden bg-white border-t border-gray-100 shadow-xl">
             <div class="pt-2 pb-3 space-y-1 px-4">
                 <a href="/#hero" @click="mobileOpen = false" class="block py-3 text-base font-medium text-gray-700 border-b border-gray-50 hover:text-indigo-600">Beranda</a>
-                <a href="/tentang" @click="mobileOpen = false" class="block py-3 text-base font-medium text-gray-700 border-b border-gray-50 hover:text-indigo-600">Tentang</a>
+                <a href="/#tentang" @click="mobileOpen = false" class="block py-3 text-base font-medium text-gray-700 border-b border-gray-50 hover:text-indigo-600">Tentang</a>
                 <a href="/#alur" @click="mobileOpen = false" class="block py-3 text-base font-medium text-gray-700 border-b border-gray-50 hover:text-indigo-600">Alur</a>
                 <a href="/#area" @click="mobileOpen = false" class="block py-3 text-base font-medium text-gray-700 border-b border-gray-50 hover:text-indigo-600">Area</a>
                 <a href="/#testimoni" @click="mobileOpen = false" class="block py-3 text-base font-medium text-gray-700 border-b border-gray-50 hover:text-indigo-600">Testimoni</a>
@@ -105,7 +105,7 @@
                     <h4 class="text-md font-bold text-white mb-6 uppercase tracking-wider">Navigasi</h4>
                     <ul class="space-y-3 text-gray-400">
                         <li><a href="/#hero" class="hover:text-white transition">Beranda</a></li>
-                        <li><a href="/tentang" class="hover:text-white transition">Tentang Kami</a></li>
+                        <li><a href="/#tentang" class="hover:text-white transition">Tentang Kami</a></li>
                         <li><a href="/#alur" class="hover:text-white transition">Alur Penanganan</a></li>
                         <li><a href="/#area" class="hover:text-white transition">Area Kecanduan</a></li>
                         <li><a href="/#testimoni" class="hover:text-white transition">Testimoni</a></li>
