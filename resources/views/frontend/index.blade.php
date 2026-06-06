@@ -129,7 +129,7 @@
                 <p class="text-lg text-gray-600 max-w-2xl mx-auto mb-16">Setiap sesi dirancang secara sistematis untuk hasil yang optimal dan berkelanjutan.</p>
             </div>
             <div class="relative">
-                <div class="absolute top-16 left-[40px] md:left-1/2 w-0.5 bg-indigo-200 -translate-x-1/2 hidden md:block pointer-events-none" style="bottom:4rem"></div>
+                <div class="absolute top-16 left-1/2 w-0.5 bg-indigo-400 -translate-x-1/2 pointer-events-none" style="bottom:4rem"></div>
                 <div class="space-y-12 relative">
                     @foreach($tahapans as $index => $tahap)
                         <a href="{{ route('frontend.tahapan.detail', $tahap) }}" data-reveal class="flex flex-col md:flex-row items-center gap-8 {{ $index % 2 == 0 ? 'md:flex-row' : 'md:flex-row-reverse' }} group">
@@ -145,7 +145,7 @@
                                 </div>
                             </div>
                             <div class="shrink-0 relative z-10">
-                                <div class="w-24 h-24 bg-white border-4 border-indigo-600 rounded-2xl flex items-center justify-center shadow-xl group-hover:shadow-2xl group-hover:border-indigo-400 transition-all duration-300">
+                                <div class="w-24 h-24 bg-white border-2 border-indigo-600 rounded-2xl flex items-center justify-center shadow-xl group-hover:shadow-2xl group-hover:border-indigo-400 transition-all duration-300">
                                     @if($tahap->ikon)
                                         <img src="{{ asset('storage/' . $tahap->ikon) }}" class="w-10 h-10 object-contain" alt="{{ $tahap->nama_tahap }}">
                                     @else
@@ -322,8 +322,8 @@
             </div>
 
             <div class="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
-                <div class="space-y-8">
-                    <div data-reveal class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 card-hover">
+                <div class="h-full">
+                    <div data-reveal class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 card-hover h-full">
                         <h3 class="text-xl font-bold text-gray-900 mb-6">Informasi Kontak</h3>
                         <div class="space-y-5">
                             <div class="flex items-start gap-4">
@@ -391,7 +391,7 @@
                     </div>
                 </div>
 
-                <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100">
+                <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 h-full">
                     <h3 class="text-xl font-bold text-gray-900 mb-6">Kirim Pesan</h3>
                     @if(session('success_pesan'))
                         <div class="mb-6 p-4 bg-green-100 text-green-700 rounded-xl font-medium">{{ session('success_pesan') }}</div>
