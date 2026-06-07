@@ -1,17 +1,22 @@
+@php
+    $testimoniPending = \App\Models\Testimoni::where('status_publikasi', false)->count();
+    $pesanBelumDibaca = \App\Models\PesanKontak::where('status_baca', 'Belum Dibaca')->count();
+@endphp
+
 <nav x-data="{ open: false }" class="bg-white shadow-sm sticky top-0 z-50">
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
         <div class="flex justify-between h-20">
-            <div class="flex">
-                <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
-                        <div class="flex items-center gap-3">
-                            <img src="{{ asset('storage/media/logo/logo.jpeg') }}" alt="HypnoKonseling" class="h-10 w-auto">
-                            <span class="text-xl font-bold text-gray-900 tracking-tight">Hypno<span class="text-brand-600">Konseling</span></span>
-                        </div>
-                    </a>
-                </div>
+            <div class="shrink-0 flex items-center">
+                <a href="{{ route('dashboard') }}">
+                    <div class="flex items-center gap-3">
+                        <img src="{{ asset('storage/media/logo/logo.jpeg') }}" alt="HypnoKonseling" class="h-10 w-auto">
+                        <span class="text-xl font-bold text-gray-900 tracking-tight">Hypno<span class="text-brand-600">Konseling</span></span>
+                    </div>
+                </a>
+            </div>
 
-                <div class="hidden space-x-1 sm:-my-px sm:ms-12 sm:flex">
+            <div class="hidden sm:flex sm:items-center gap-2">
+                <div class="flex space-x-1">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="text-gray-500 hover:text-brand-600 hover:border-brand-600 font-semibold">
                         {{ __('Dashboard') }}
                     </x-nav-link>
@@ -28,29 +33,37 @@
                         {{ __('Kecanduan') }}
                     </x-nav-link>
                     <x-nav-link :href="route('admin.testimoni.index')" :active="request()->routeIs('admin.testimoni.*')" class="text-gray-500 hover:text-brand-600 hover:border-brand-600 font-semibold">
-                        {{ __('Testimoni') }}
+                        <span class="flex items-center gap-1.5">
+                            <span>{{ __('Testimoni') }}</span>
+                            @if($testimoniPending > 0)
+                                <span class="inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 text-[10px] font-bold text-white bg-green-500 rounded-full">{{ $testimoniPending }}</span>
+                            @endif
+                        </span>
                     </x-nav-link>
                     <x-nav-link :href="route('admin.kontak.index')" :active="request()->routeIs('admin.kontak.*')" class="text-gray-500 hover:text-brand-600 hover:border-brand-600 font-semibold">
                         {{ __('Kontak') }}
                     </x-nav-link>
                     <x-nav-link :href="route('admin.pesan-masuk.index')" :active="request()->routeIs('admin.pesan-masuk.*')" class="text-gray-500 hover:text-brand-600 hover:border-brand-600 font-semibold">
-                        {{ __('Pesan') }}
+                        <span class="flex items-center gap-1.5">
+                            <span>{{ __('Pesan') }}</span>
+                            @if($pesanBelumDibaca > 0)
+                                <span class="inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 text-[10px] font-bold text-white bg-green-500 rounded-full">{{ $pesanBelumDibaca }}</span>
+                            @endif
+                        </span>
                     </x-nav-link>
                     @if(Auth::user()->peran === 'super_admin')
                         <x-nav-link :href="route('admin.pengguna.index')" :active="request()->routeIs('admin.pengguna.*')" class="text-gray-500 hover:text-brand-600 hover:border-brand-600 font-semibold">
                             {{ __('Pengguna') }}
                         </x-nav-link>
                         <x-nav-link :href="route('admin.log-aktivitas.index')" :active="request()->routeIs('admin.log-aktivitas.*')" class="text-gray-500 hover:text-brand-600 hover:border-brand-600 font-semibold">
-                            {{ __('Log') }}
-                        </x-nav-link>
-                    @endif
+                                {{ __('Log') }}
+                            </x-nav-link>
+                        @endif
                     <x-nav-link :href="route('home')" target="_blank" class="text-gray-500 hover:text-brand-600 hover:border-brand-600 font-semibold">
                         {{ __('Lihat Website') }}
                     </x-nav-link>
                 </div>
-            </div>
 
-            <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-semibold rounded-xl text-gray-700 bg-gray-50 hover:bg-gray-100 transition duration-150">
@@ -109,13 +122,23 @@
                 {{ __('Kecanduan') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('admin.testimoni.index')">
-                {{ __('Testimoni') }}
+                <span class="flex items-center gap-1.5">
+                    <span>{{ __('Testimoni') }}</span>
+                    @if($testimoniPending > 0)
+                        <span class="inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 text-[10px] font-bold text-white bg-green-500 rounded-full">{{ $testimoniPending }}</span>
+                    @endif
+                </span>
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('admin.kontak.index')">
                 {{ __('Kontak') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('admin.pesan-masuk.index')">
-                {{ __('Pesan') }}
+                <span class="flex items-center gap-1.5">
+                    <span>{{ __('Pesan') }}</span>
+                    @if($pesanBelumDibaca > 0)
+                        <span class="inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 text-[10px] font-bold text-white bg-green-500 rounded-full">{{ $pesanBelumDibaca }}</span>
+                    @endif
+                </span>
             </x-responsive-nav-link>
             @if(Auth::user()->peran === 'super_admin')
                 <x-responsive-nav-link :href="route('admin.pengguna.index')">

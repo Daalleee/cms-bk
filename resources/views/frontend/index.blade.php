@@ -30,14 +30,19 @@
                         {{ $hero->sub_judul ?? 'Metode HypnoKonseling membantu Anda menjangkau akar masalah di pikiran bawah sadar untuk transformasi hidup yang nyata dan permanen.' }}
                     </p>
                     <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                        <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $hero->whatsapp_tujuan ?? $kontak->whatsapp ?? '') }}" target="_blank" class="group px-10 py-5 bg-indigo-600 text-white font-extrabold rounded-2xl shadow-2xl shadow-indigo-200 hover:bg-indigo-700 hover:-translate-y-1 transition-all duration-300 text-lg text-center inline-flex items-center justify-center gap-2">
-                            Mulai Konsultasi
-                            <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
-                        </a>
-                        <a href="#tentang" class="group px-10 py-5 bg-white text-gray-900 font-extrabold rounded-2xl border-2 border-gray-200 hover:bg-gray-50 hover:-translate-y-1 transition-all duration-300 text-lg text-center inline-flex items-center justify-center gap-2 shadow-sm">
-                            Pelajari Metode
-                            <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
-                        </a>
+                        @if(!isset($settings['hero_tampilkan_tombol_1']) || $settings['hero_tampilkan_tombol_1'])
+                            @php $btn1Target = $settings['hero_tombol_1_target'] ?? ''; @endphp
+                            <a href="{{ $btn1Target ?: 'https://wa.me/' . preg_replace('/[^0-9]/', '', $hero->whatsapp_tujuan ?? $kontak->whatsapp ?? '') }}" target="_blank" class="group px-10 py-5 bg-indigo-600 text-white font-extrabold rounded-2xl shadow-2xl shadow-indigo-200 hover:bg-indigo-700 hover:-translate-y-1 transition-all duration-300 text-lg text-center inline-flex items-center justify-center gap-2">
+                                {{ $settings['hero_tombol_1_teks'] ?? 'Mulai Konsultasi' }}
+                                <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+                            </a>
+                        @endif
+                        @if(!isset($settings['hero_tampilkan_tombol_2']) || $settings['hero_tampilkan_tombol_2'])
+                            <a href="{{ $settings['hero_tombol_2_target'] ?? '#tentang' }}" class="group px-10 py-5 bg-white text-gray-900 font-extrabold rounded-2xl border-2 border-gray-200 hover:bg-gray-50 hover:-translate-y-1 transition-all duration-300 text-lg text-center inline-flex items-center justify-center gap-2 shadow-sm">
+                                {{ $settings['hero_tombol_2_teks'] ?? 'Pelajari Metode' }}
+                                <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+                            </a>
+                        @endif
                     </div>
                     @if($testimonis->count() > 0)
                         <div class="flex items-center gap-3 mt-10 justify-center lg:justify-start text-sm text-gray-500">
@@ -77,8 +82,8 @@
         @endif @endauth
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div data-reveal class="text-center mb-16">
-                <span class="inline-block px-4 py-1.5 bg-indigo-100 text-indigo-700 rounded-full text-sm font-semibold mb-4">Edukasi Dasar</span>
-                <h2 class="text-4xl sm:text-5xl font-black text-gray-900 mb-4">{{ $tentang->judul ?? 'Tentang HypnoKonseling' }}</h2>
+                <span class="inline-block px-4 py-1.5 bg-indigo-100 text-indigo-700 rounded-full text-sm font-semibold mb-4">{{ $settings['tentang_label'] ?? 'Edukasi Dasar' }}</span>
+                <h2 class="text-4xl sm:text-5xl font-black text-gray-900 mb-4">{{ $tentang->judul ?? $settings['tentang_sub_judul'] ?? 'Tentang HypnoKonseling' }}</h2>
                 @if($tentang && $tentang->pengantar)
                     <p class="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed mb-10">{{ $tentang->pengantar }}</p>
                 @else
@@ -124,9 +129,9 @@
         @endif @endauth
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <div data-reveal>
-                <span class="inline-block px-4 py-1.5 bg-indigo-100 text-indigo-700 rounded-full text-sm font-semibold mb-4">Metode Terstruktur</span>
-                <h2 class="text-4xl sm:text-5xl font-black text-gray-900 mb-4">Langkah Menuju Pemulihan</h2>
-                <p class="text-lg text-gray-600 max-w-2xl mx-auto mb-16">Setiap sesi dirancang secara sistematis untuk hasil yang optimal dan berkelanjutan.</p>
+                <span class="inline-block px-4 py-1.5 bg-indigo-100 text-indigo-700 rounded-full text-sm font-semibold mb-4">{{ $settings['alur_label'] ?? 'Metode Terstruktur' }}</span>
+                <h2 class="text-4xl sm:text-5xl font-black text-gray-900 mb-4">{{ $settings['alur_judul'] ?? 'Langkah Menuju Pemulihan' }}</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto mb-16">{{ $settings['alur_sub_judul'] ?? 'Setiap sesi dirancang secara sistematis untuk hasil yang optimal dan berkelanjutan.' }}</p>
             </div>
             <div class="relative">
                 <div class="absolute top-16 left-1/2 w-0.5 bg-indigo-400 -translate-x-1/2 pointer-events-none" style="bottom:4rem"></div>
@@ -171,9 +176,9 @@
         @endif @endauth
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div data-reveal class="text-center mb-16">
-                <span class="inline-block px-4 py-1.5 bg-indigo-100 text-indigo-700 rounded-full text-sm font-semibold mb-4">Yang Kami Tangani</span>
-                <h2 class="text-4xl sm:text-5xl font-black mb-4">Area Pemulihan Kecanduan</h2>
-                <p class="text-lg text-gray-500 max-w-2xl mx-auto">Klik pada setiap kategori untuk melihat video penanganan dan panduan lengkapnya.</p>
+                <span class="inline-block px-4 py-1.5 bg-indigo-100 text-indigo-700 rounded-full text-sm font-semibold mb-4">{{ $settings['area_label'] ?? 'Yang Kami Tangani' }}</span>
+                <h2 class="text-4xl sm:text-5xl font-black mb-4">{{ $settings['area_judul'] ?? 'Area Pemulihan Kecanduan' }}</h2>
+                <p class="text-lg text-gray-500 max-w-2xl mx-auto">{{ $settings['area_sub_judul'] ?? 'Klik pada setiap kategori untuk melihat video penanganan dan panduan lengkapnya.' }}</p>
             </div>
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
                 @forelse($areas as $area)
@@ -209,10 +214,10 @@
         @endif @endauth
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div data-reveal class="text-center mb-16">
-                <span class="inline-block px-4 py-1.5 bg-indigo-100 text-indigo-700 rounded-full text-sm font-semibold mb-4">Social Proof</span>
-                <h2 class="text-4xl sm:text-5xl font-black text-gray-900 mb-4">Cerita Mereka yang Pulih</h2>
+                <span class="inline-block px-4 py-1.5 bg-indigo-100 text-indigo-700 rounded-full text-sm font-semibold mb-4">{{ $settings['testimoni_label'] ?? 'Social Proof' }}</span>
+                <h2 class="text-4xl sm:text-5xl font-black text-gray-900 mb-4">{{ $settings['testimoni_judul'] ?? 'Cerita Mereka yang Pulih' }}</h2>
                 <div class="w-24 h-1.5 bg-indigo-600 mx-auto rounded-full mb-8"></div>
-                <p class="text-gray-600 max-w-2xl mx-auto">Pengalaman nyata dari klien yang telah berhasil melalui proses HypnoKonseling.</p>
+                <p class="text-gray-600 max-w-2xl mx-auto">{{ $settings['testimoni_sub_judul'] ?? 'Pengalaman nyata dari klien yang telah berhasil melalui proses HypnoKonseling.' }}</p>
             </div>
 
             @if($testimonis->count() > 0)
@@ -316,9 +321,9 @@
         @endif @endauth
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div data-reveal class="text-center mb-16">
-                <span class="inline-block px-4 py-1.5 bg-indigo-100 text-indigo-700 rounded-full text-sm font-semibold mb-4">Hubungi Kami</span>
-                <h2 class="text-4xl sm:text-5xl font-black text-gray-900 mb-4">Mulai Perubahan Hidup Anda</h2>
-                <p class="text-lg text-gray-600 max-w-2xl mx-auto">Ada pertanyaan atau ingin menjadwalkan konsultasi? Kami siap melayani Anda.</p>
+                <span class="inline-block px-4 py-1.5 bg-indigo-100 text-indigo-700 rounded-full text-sm font-semibold mb-4">{{ $settings['kontak_judul'] ?? 'Hubungi Kami' }}</span>
+                <h2 class="text-4xl sm:text-5xl font-black text-gray-900 mb-4">{{ $settings['kontak_sub_judul'] ?? 'Mulai Perubahan Hidup Anda' }}</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">{{ $settings['kontak_sub_judul'] ?? 'Ada pertanyaan atau ingin menjadwalkan konsultasi? Kami siap melayani Anda.' }}</p>
             </div>
 
             <div class="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
@@ -366,24 +371,29 @@
                         <div class="pt-4 border-t border-gray-100 mt-auto">
                             <p class="font-semibold text-gray-900 mb-3">Ikuti Kami</p>
                             <div class="flex flex-wrap gap-4">
-                                @if($kontak && $kontak->youtube)
+                                @if($kontak && $kontak->youtube && $kontak->tampilkan_youtube)
                                     <a href="https://youtube.com/@{{ $kontak->youtube }}" target="_blank" class="text-red-600 hover:text-red-500 transition">
                                         <svg class="w-8 h-8 fill-current" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
                                     </a>
                                 @endif
-                                @if($kontak && $kontak->instagram)
+                                @if($kontak && $kontak->instagram && $kontak->tampilkan_instagram)
                                     <a href="https://instagram.com/{{ $kontak->instagram }}" target="_blank" class="text-pink-600 hover:text-pink-500 transition">
                                         <svg class="w-8 h-8 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0c-3.254 0-3.662.014-4.94.072-2.766.127-4.648 1.181-5.593 2.665-.78 1.225-1.023 2.705-1.062 4.191-.025.905-.025 1.185-.025 3.072s0 2.167.025 3.072c.039 1.486.282 2.966 1.062 4.191.945 1.484 2.828 2.538 5.593 2.665 1.278.057 1.686.072 4.94.072 3.254 0 3.662-.015 4.94-.072 2.766-.127 4.648-1.181 5.593-2.665.78-1.225 1.023-2.705 1.062-4.191.025-.905.025-1.185.025-3.072s0-2.167-.025-3.072c-.039-1.486-.282-2.966-1.062-4.191-.945-1.484-2.828-2.538-5.593-2.665C15.662.014 15.254 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.405-10.405a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"/></svg>
                                     </a>
                                 @endif
-                                @if($kontak && $kontak->facebook)
+                                @if($kontak && $kontak->facebook && $kontak->tampilkan_facebook)
                                     <a href="https://facebook.com/{{ $kontak->facebook }}" target="_blank" class="text-blue-600 hover:text-blue-500 transition">
                                         <svg class="w-8 h-8 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
                                     </a>
                                 @endif
-                                @if($kontak && $kontak->twitter)
-                                    <a href="https://twitter.com/{{ $kontak->twitter }}" target="_blank" class="text-sky-500 hover:text-sky-400 transition">
+                                @if($kontak && $kontak->twitter && $kontak->tampilkan_twitter)
+                                    <a href="https://twitter.com/{{ $kontak->twitter }}" target="_blank" class="text-gray-900 hover:text-black transition">
                                         <svg class="w-8 h-8 fill-current" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                                    </a>
+                                @endif
+                                @if($kontak && $kontak->tiktok && $kontak->tampilkan_tiktok)
+                                    <a href="https://tiktok.com/@{{ $kontak->tiktok }}" target="_blank" class="text-gray-900 hover:text-black transition">
+                                        <svg class="w-8 h-8 fill-current" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
                                     </a>
                                 @endif
                             </div>
@@ -423,7 +433,7 @@
                             <textarea name="pesan" rows="4" required class="w-full px-4 py-3 rounded-xl border-gray-200 focus:border-indigo-500 focus:ring-indigo-500"></textarea>
                         </div>
                         <button type="submit" class="w-full py-4 bg-indigo-600 text-white font-bold rounded-xl shadow-lg hover:bg-indigo-700 transition duration-300 text-lg">
-                            Kirim Pesan
+                            {{ $settings['kontak_btn_kirim'] ?? 'Kirim Pesan' }}
                         </button>
                     </form>
                 </div>

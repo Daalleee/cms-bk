@@ -18,6 +18,10 @@
 
                     <div class="mb-8 p-4 bg-gray-50 rounded-lg space-y-4">
                         <div>
+                            <x-input-label for="tentang_label" :value="__('Label Section (muncul di badge)')" />
+                            <x-text-input id="tentang_label" class="block mt-1 w-full" type="text" x-model="pengantar.label" />
+                        </div>
+                        <div>
                             <x-input-label for="judul" :value="__('Judul Halaman')" />
                             <x-text-input id="judul" class="block mt-1 w-full" type="text" x-model="pengantar.judul" required />
                         </div>
@@ -54,10 +58,10 @@
                     </template>
 
                     <div class="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-gray-200">
-                        <button @click="addSection" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-300 transition">+ Tambah Section Baru</button>
+                        <button @click="addSection" class="px-4 py-2 bg-indigo-600 text-white rounded-lg text-sm font-medium hover:bg-indigo-700 transition">+ Tambah Section Baru</button>
                         <div class="flex items-center gap-3">
                             <span x-text="saving ? 'Menyimpan...' : ''" class="text-sm text-gray-500"></span>
-                            <button @click="saveAll" :disabled="saving" class="px-6 py-2.5 bg-indigo-600 text-white rounded-lg text-sm font-bold hover:bg-indigo-700 transition disabled:opacity-50">Simpan Semua</button>
+                            <button @click="saveAll" :disabled="saving" class="px-6 py-2.5 bg-indigo-600 text-white rounded-lg text-sm font-bold hover:bg-indigo-700 transition disabled:opacity-50">Simpan Perubahan</button>
                         </div>
                     </div>
                 </div>
@@ -72,6 +76,7 @@ function tentangManager() {
         pengantar: {
             judul: '{{ $tentang->judul ?? "Tentang HypnoKonseling" }}',
             teks: '{{ $tentang->pengantar ?? "" }}',
+            label: '{{ $settings["tentang_label"] ?? "Edukasi Dasar" }}',
         },
         sections: @json($sections),
         nextId: -1,
@@ -105,11 +110,12 @@ function tentangManager() {
             const payload = {
                 judul: this.pengantar.judul,
                 pengantar: this.pengantar.teks,
+                tentang_label: this.pengantar.label,
                 sections: existing.map(s => ({
                     id: s.id,
                     judul: s.judul,
                     deskripsi: s.deskripsi,
-                    video_url: s.video_url,
+                    video_url: s.video_url || null,
                 })),
             };
 
@@ -119,6 +125,9 @@ function tentangManager() {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': '{{ csrf_token() }}' },
                 body: JSON.stringify(payload),
+            }).then(res => {
+                if (!res.ok) throw new Error('Gagal menyimpan');
+                return res.json();
             });
 
             const addPromises = newSections.map(sec =>
@@ -128,9 +137,12 @@ function tentangManager() {
                     body: JSON.stringify({
                         judul: sec.judul,
                         deskripsi: sec.deskripsi,
-                        video_url: sec.video_url,
+                        video_url: sec.video_url || null,
                     }),
-                }).then(res => res.json())
+                }).then(res => {
+                    if (!res.ok) throw new Error('Gagal menambah section');
+                    return res.json();
+                })
                 .then(data => {
                     if (data.success) sec.id = data.section.id;
                 })

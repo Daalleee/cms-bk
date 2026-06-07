@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Kontak;
 use App\Models\LogAktivitas;
+use App\Models\Pengaturan;
 use Illuminate\Http\Request;
 
 class KontakController extends Controller
@@ -11,16 +12,17 @@ class KontakController extends Controller
     public function index()
     {
         $kontak = Kontak::first();
-        return view('admin.kontak.index', compact('kontak'));
+        $settings = Pengaturan::getAll();
+        return view('admin.kontak.index', compact('kontak', 'settings'));
     }
 
     public function store(Request $request)
     {
         $validated = $request->validate([
             'alamat' => 'required|string',
-            'telepon' => 'nullable|string|max:20',
+            'telepon' => 'required|string|max:20',
             'whatsapp' => 'required|string|max:20',
-            'email' => 'nullable|email|max:255',
+            'email' => 'required|email|max:255',
             'instagram' => 'nullable|string|max:255',
             'tiktok' => 'nullable|string|max:255',
             'youtube' => 'nullable|string|max:255',
@@ -44,6 +46,14 @@ class KontakController extends Controller
             $kontak->update($validated);
         } else {
             Kontak::create($validated);
+        }
+
+        // save section labels
+        $labelKeys = ['kontak_judul', 'kontak_sub_judul', 'kontak_btn_kirim'];
+        foreach ($labelKeys as $key) {
+            if ($request->has($key)) {
+                Pengaturan::setValue($key, $request->input($key));
+            }
         }
 
         LogAktivitas::create([

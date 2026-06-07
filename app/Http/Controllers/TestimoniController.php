@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\LogAktivitas;
+use App\Models\Pengaturan;
 use App\Models\Testimoni;
 use Illuminate\Http\Request;
 
@@ -11,7 +12,8 @@ class TestimoniController extends Controller
     public function index()
     {
         $testimonis = Testimoni::latest()->get();
-        return view('admin.testimoni.index', compact('testimonis'));
+        $settings = Pengaturan::getAll();
+        return view('admin.testimoni.index', compact('testimonis', 'settings'));
     }
 
     public function create()

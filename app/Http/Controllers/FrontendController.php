@@ -10,6 +10,7 @@ use App\Models\PesanKontak;
 use App\Models\TahapanPenanganan;
 use App\Models\TentangKami;
 use App\Models\TentangSection;
+use App\Models\Pengaturan;
 use App\Models\Testimoni;
 use Illuminate\Http\Request;
 
@@ -24,8 +25,9 @@ class FrontendController extends Controller
         $areas = AreaKecanduan::where('status', true)->orderBy('urutan')->with('detailPenanganan.media')->get();
         $testimonis = Testimoni::where('status_publikasi', true)->latest()->take(10)->get();
         $kontak = Kontak::first();
+        $settings = Pengaturan::getAll();
 
-        return view('frontend.index', compact('hero', 'tentang', 'sections', 'tahapans', 'areas', 'testimonis', 'kontak'));
+        return view('frontend.index', compact('hero', 'tentang', 'sections', 'tahapans', 'areas', 'testimonis', 'kontak', 'settings'));
     }
 
     public function storeTestimoni(Request $request)

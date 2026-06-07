@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\AreaKecanduan;
 use App\Models\LogAktivitas;
+use App\Models\Pengaturan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -12,7 +13,8 @@ class AreaKecanduanController extends Controller
     public function index()
     {
         $areas = AreaKecanduan::with('detailPenanganan')->orderBy('urutan')->get();
-        return view('admin.area-kecanduan.index', compact('areas'));
+        $settings = Pengaturan::getAll();
+        return view('admin.area-kecanduan.index', compact('areas', 'settings'));
     }
 
     public function create()

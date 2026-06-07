@@ -52,11 +52,14 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
         Route::put('tentang-section/{tentangSection}', [TentangSectionController::class, 'update'])->name('tentang-section.update');
         Route::post('tentang-section/save-all', [TentangSectionController::class, 'saveAll'])->name('tentang-section.save-all');
         Route::delete('tentang-section/{tentangSection}', [TentangSectionController::class, 'destroy'])->name('tentang-section.destroy');
+        Route::get('pengaturan', [App\Http\Controllers\Admin\PengaturanController::class, 'index'])->name('pengaturan.index');
+        Route::post('pengaturan', [App\Http\Controllers\Admin\PengaturanController::class, 'update'])->name('pengaturan.update');
         Route::resource('log-aktivitas', LogAktivitasController::class)->only(['index']);
         Route::resource('pengguna', UserManagementController::class)->except(['show']);
     });
 
     Route::middleware(['role:admin,super_admin'])->group(function () {
+        Route::post('pengaturan/section-labels', [App\Http\Controllers\Admin\PengaturanController::class, 'updateSectionLabels'])->name('pengaturan.section-labels');
         Route::resource('area-kecanduan', AreaKecanduanController::class)->except(['show']);
         Route::resource('testimoni', TestimoniController::class)->except(['show']);
         Route::patch('testimoni/{testimoni}/approve', [TestimoniController::class, 'approve'])->name('testimoni.approve');

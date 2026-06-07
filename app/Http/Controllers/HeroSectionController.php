@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\HeroSection;
 use App\Models\LogAktivitas;
+use App\Models\Pengaturan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -12,7 +13,8 @@ class HeroSectionController extends Controller
     public function index()
     {
         $hero = HeroSection::first();
-        return view('admin.hero-section.index', compact('hero'));
+        $settings = Pengaturan::getAll();
+        return view('admin.hero-section.index', compact('hero', 'settings'));
     }
 
     public function store(Request $request)
@@ -22,6 +24,10 @@ class HeroSectionController extends Controller
             'sub_judul' => 'nullable|string',
             'whatsapp_tujuan' => 'nullable|string|max:20',
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'tombol_1_teks' => 'nullable|string|max:255',
+            'tombol_1_target' => 'nullable|string|max:255',
+            'tombol_2_teks' => 'nullable|string|max:255',
+            'tombol_2_target' => 'nullable|string|max:255',
         ]);
 
         $hero = HeroSection::first();
@@ -37,6 +43,19 @@ class HeroSectionController extends Controller
             $hero->update($validated);
         } else {
             HeroSection::create($validated);
+        }
+
+        // save button settings to pengaturan
+        $pengaturanData = [
+            'hero_tombol_1_teks' => $request->input('tombol_1_teks'),
+            'hero_tombol_1_target' => $request->input('tombol_1_target'),
+            'hero_tampilkan_tombol_1' => $request->boolean('tampilkan_tombol_1') ? '1' : '0',
+            'hero_tombol_2_teks' => $request->input('tombol_2_teks'),
+            'hero_tombol_2_target' => $request->input('tombol_2_target'),
+            'hero_tampilkan_tombol_2' => $request->boolean('tampilkan_tombol_2') ? '1' : '0',
+        ];
+        foreach ($pengaturanData as $key => $value) {
+            Pengaturan::setValue($key, $value);
         }
 
         LogAktivitas::create([

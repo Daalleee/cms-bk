@@ -45,7 +45,7 @@
 
                         <div class="flex items-center justify-end mt-4">
                             <a href="{{ route('admin.pengguna.index') }}" class="inline-flex items-center px-4 py-2 bg-gray-300 border border-transparent rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest hover:bg-gray-400 mr-2">Batal</a>
-                            <x-primary-button>{{ __('Perbarui') }}</x-primary-button>
+                            <x-primary-button>{{ __('Simpan Perubahan') }}</x-primary-button>
                         </div>
                     </form>
                 </div>

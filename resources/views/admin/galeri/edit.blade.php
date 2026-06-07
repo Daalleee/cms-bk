@@ -67,7 +67,7 @@
 
                         <div class="flex items-center justify-end mt-4">
                             <x-primary-button>
-                                {{ __('Perbarui') }}
+                                {{ __('Simpan Perubahan') }}
                             </x-primary-button>
                         </div>
                     </form>

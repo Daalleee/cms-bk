@@ -76,7 +76,7 @@
                                 {{ __('Batal') }}
                             </a>
                             <x-primary-button>
-                                {{ __('Perbarui') }}
+                                {{ __('Simpan Perubahan') }}
                             </x-primary-button>
                         </div>
                     </form>
