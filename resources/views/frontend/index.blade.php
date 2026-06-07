@@ -1,6 +1,9 @@
 @extends('layouts.frontend')
 
-@section('title', 'HypnoKonseling - Pulihkan Diri, Raih Kembali Kendali Hidupmu')
+@section('title', 'HypnoKonseling')
+@section('meta_desc', 'HypnoKonseling')
+@section('og_title', 'HypnoKonseling')
+@section('og_desc', 'HypnoKonseling')
 
 @auth
     @php
@@ -24,10 +27,10 @@
             <div class="grid lg:grid-cols-2 gap-12 items-center">
                 <div data-reveal class="text-center lg:text-left">
                     <h1 class="text-4xl sm:text-5xl lg:text-7xl font-black text-gray-900 leading-tight mb-6">
-                        {{ $hero->judul ?? 'Pulihkan Diri dari Kecanduan, Raih Kembali Kendali Hidupmu' }}
+                        {{ $hero->judul ?? 'HypnoKonseling' }}
                     </h1>
                     <p class="text-lg sm:text-xl text-gray-600 mb-10 leading-relaxed max-w-xl mx-auto lg:mx-0">
-                        {{ $hero->sub_judul ?? 'Metode HypnoKonseling membantu Anda menjangkau akar masalah di pikiran bawah sadar untuk transformasi hidup yang nyata dan permanen.' }}
+                        {{ $hero->sub_judul ?? '' }}
                     </p>
                     <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                         @if(!isset($settings['hero_tampilkan_tombol_1']) || $settings['hero_tampilkan_tombol_1'])
@@ -55,7 +58,7 @@
                         </div>
                     @endif
                 </div>
-                <div class="relative hidden lg:block">
+                <div class="relative mt-12 lg:mt-0">
                     <div class="absolute -top-20 -right-20 w-96 h-96 bg-indigo-100 rounded-full mix-blend-multiply filter blur-3xl opacity-70"></div>
                     <div class="absolute -bottom-20 -left-20 w-96 h-96 bg-purple-100 rounded-full mix-blend-multiply filter blur-3xl opacity-70"></div>
                     <div class="relative">
@@ -215,9 +218,9 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div data-reveal class="text-center mb-16">
                 <span class="inline-block px-4 py-1.5 bg-indigo-100 text-indigo-700 rounded-full text-sm font-semibold mb-4">{{ $settings['testimoni_label'] ?? 'Social Proof' }}</span>
-                <h2 class="text-4xl sm:text-5xl font-black text-gray-900 mb-4">{{ $settings['testimoni_judul'] ?? 'Cerita Mereka yang Pulih' }}</h2>
+                <h2 class="text-4xl sm:text-5xl font-black text-gray-900 mb-4">{{ $settings['testimoni_judul'] ?? 'Testimoni' }}</h2>
                 <div class="w-24 h-1.5 bg-indigo-600 mx-auto rounded-full mb-8"></div>
-                <p class="text-gray-600 max-w-2xl mx-auto">{{ $settings['testimoni_sub_judul'] ?? 'Pengalaman nyata dari klien yang telah berhasil melalui proses HypnoKonseling.' }}</p>
+                <p class="text-gray-600 max-w-2xl mx-auto">{{ $settings['testimoni_sub_judul'] ?? '' }}</p>
             </div>
 
             @if($testimonis->count() > 0)

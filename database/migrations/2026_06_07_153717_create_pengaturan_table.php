@@ -17,8 +17,8 @@ return new class extends Migration
 
         $defaults = [
             // Hero
-            'hero_judul' => 'Pulihkan Diri dari Kecanduan, Raih Kembali Kendali Hidupmu',
-            'hero_sub_judul' => 'Metode HypnoKonseling membantu Anda menjangkau akar masalah di pikiran bawah sadar untuk transformasi hidup yang nyata dan permanen.',
+            'hero_judul' => 'HypnoKonseling',
+            'hero_sub_judul' => '',
             'hero_tombol_1_teks' => 'Mulai Konsultasi',
             'hero_tombol_1_target' => '',
             'hero_tampilkan_tombol_1' => '1',
@@ -42,8 +42,8 @@ return new class extends Migration
 
             // Testimoni
             'testimoni_label' => 'Social Proof',
-            'testimoni_judul' => 'Cerita Mereka yang Pulih',
-            'testimoni_sub_judul' => 'Pengalaman nyata dari klien yang telah berhasil melalui proses HypnoKonseling.',
+            'testimoni_judul' => 'Testimoni',
+            'testimoni_sub_judul' => '',
 
             // Kontak
             'kontak_judul' => 'Hubungi Kami',

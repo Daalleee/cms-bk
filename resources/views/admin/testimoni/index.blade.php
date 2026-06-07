@@ -24,7 +24,7 @@
                     </div>
                     <div>
                         <label class="block text-xs font-medium text-gray-500 mb-1">Judul</label>
-                        <input type="text" value="{{ $settings['testimoni_judul'] ?? 'Cerita Mereka yang Pulih' }}" data-key="testimoni_judul" class="section-label-input w-48 border-gray-300 rounded-md text-sm shadow-sm">
+                        <input type="text" value="{{ $settings['testimoni_judul'] ?? 'Testimoni' }}" data-key="testimoni_judul" class="section-label-input w-48 border-gray-300 rounded-md text-sm shadow-sm">
                     </div>
                     <div>
                         <label class="block text-xs font-medium text-gray-500 mb-1">Sub Judul</label>

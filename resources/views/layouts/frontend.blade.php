@@ -3,10 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="HypnoKonseling - Pulihkan Diri dari Kecanduan, Raih Kembali Kendali Hidupmu">
+    <meta name="description" content="@yield('meta_desc', 'HypnoKonseling')">
     <meta name="keywords" content="hypnokonseling, hipnoterapi, kecanduan, konseling, terapi">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'HypnoKonseling - Pulihkan Diri, Raih Kendali')</title>
+    <title>@yield('title', 'HypnoKonseling')</title>
+    <meta property="og:title" content="@yield('og_title', 'HypnoKonseling')">
+    <meta property="og:description" content="@yield('og_desc', 'HypnoKonseling')">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="@yield('og_image', asset('storage/media/logo/logo.jpeg'))">
+    <meta name="twitter:card" content="summary">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <style>
@@ -86,7 +92,7 @@
                         <span class="text-2xl font-black tracking-tight">Hypno<span class="text-indigo-400">Konseling</span></span>
                     </div>
                     <p class="text-gray-400 leading-relaxed mb-6 max-w-md">
-                        {{ $hero->sub_judul ?? 'Pendekatan HypnoKonseling untuk membantu proses perubahan perilaku secara lebih efektif.' }}
+                        {{ $hero->sub_judul ?? 'HypnoKonseling' }}
                     </p>
                     <div class="flex space-x-4">
                         @if($kontak && $kontak->youtube && $kontak->tampilkan_youtube)
